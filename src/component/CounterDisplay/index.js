@@ -1,14 +1,20 @@
 import React,{Component} from 'react'
-import { connect } from 'react-redux'
-const mapStateToProps=state=>({
-  count:state.getIn(['counter','count'])
+import {observer,inject} from 'mobx-react'
+// @inject('counter')
+@inject((store)=>{
+    return{
+        count:store.counter.count,
+        double:store.counter.double,
+    }
 })
-@connect(mapStateToProps)
+@observer
 class CounterDisplay extends Component{
     render(){
+        // console.log(this.props);
         return(
             <div>
-                {this.props.count}
+                <div>原数：{this.props.count}</div>
+                <div>double：{this.props.double}</div>
             </div>
         )
     }
